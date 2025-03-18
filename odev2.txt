@@ -7,12 +7,12 @@ SELECT
         (CASE WHEN inv.invoice_id IS NULL THEN 1 ELSE 0 END) +
         (CASE WHEN inv.customer_id IS NULL THEN 1 ELSE 0 END) +
         (CASE WHEN inv.invoice_date IS NULL THEN 1 ELSE 0 END)+
-		(CASE WHEN inv.billing_address IS NULL THEN 1 ELSE 0 END)+
-		(CASE WHEN inv.billing_city IS NULL THEN 1 ELSE 0 END)+
-		(CASE WHEN inv.billing_state IS NULL THEN 1 ELSE 0 END)+
-		(CASE WHEN inv.billing_country IS NULL THEN 1 ELSE 0 END)+
-		(CASE WHEN inv.billingpostal_code IS NULL THEN 1 ELSE 0 END)+
-		(CASE WHEN inv.total IS NULL THEN 1 ELSE 0 END)
+	(CASE WHEN inv.billing_address IS NULL THEN 1 ELSE 0 END)+
+	(CASE WHEN inv.billing_city IS NULL THEN 1 ELSE 0 END)+
+	(CASE WHEN inv.billing_state IS NULL THEN 1 ELSE 0 END)+
+	(CASE WHEN inv.billing_country IS NULL THEN 1 ELSE 0 END)+
+	(CASE WHEN inv.billingpostal_code IS NULL THEN 1 ELSE 0 END)+
+	(CASE WHEN inv.total IS NULL THEN 1 ELSE 0 END)
     ) AS sum_null
 FROM invoice as inv;
 
