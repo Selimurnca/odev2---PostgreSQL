@@ -1,0 +1,43 @@
+select * from invoice --Tablo isimlerini görmek ve tek satırda null değerleri yazabilmek için invoice tablosunu getirdim.
+
+-- 1. Sorgu
+
+SELECT 
+    SUM(
+        (CASE WHEN inv.invoice_id IS NULL THEN 1 ELSE 0 END) +
+        (CASE WHEN inv.customer_id IS NULL THEN 1 ELSE 0 END) +
+        (CASE WHEN inv.invoice_date IS NULL THEN 1 ELSE 0 END)+
+		(CASE WHEN inv.billing_address IS NULL THEN 1 ELSE 0 END)+
+		(CASE WHEN inv.billing_city IS NULL THEN 1 ELSE 0 END)+
+		(CASE WHEN inv.billing_state IS NULL THEN 1 ELSE 0 END)+
+		(CASE WHEN inv.billing_country IS NULL THEN 1 ELSE 0 END)+
+		(CASE WHEN inv.billingpostal_code IS NULL THEN 1 ELSE 0 END)+
+		(CASE WHEN inv.total IS NULL THEN 1 ELSE 0 END)
+    ) AS sum_null
+FROM invoice as inv;
+
+/* Burada ise bütün sütunlara IS NULL , ELSE ve END komutlarıyla sütunda NULL değerler bitene kadar 1 kere saydırdım.
+Daha sonra total sayıyı başka bir tablo oluşturarak gösterdim. Toplam NULL değer sayısı 230.
+*/
+
+
+-- 2. Sorgu
+
+SELECT 
+    total AS old_total,
+    total * 2 AS new_total
+FROM invoice
+ORDER BY new_total DESC;
+
+/* Burada ise invoice tablosundaki total sütunundaki değerlerin iki katını aldığımız yeni bir sütun ile orjinal total sütununu karşılaştırabildğimiz bir çıktı elde ediyoruz.
+*/
+
+-- 3. Sorgu 
+
+SELECT 
+    LEFT(billing_address, 3) || RIGHT(billing_address, 4) AS "Open Address"
+FROM invoice
+WHERE EXTRACT(YEAR FROM invoice_date) = 2013
+  AND EXTRACT(MONTH FROM invoice_date) = 8;
+
+/* Burada adresleri sağdan 3 ve soldan 4 index alarak open address altında topladık . Ve sadece 2013 8. ayında olan adresler için uyguladık.
